@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/nariapi/static/css/main.eb2fd41d.chunk.css",
-    "main.js": "/nariapi/static/js/main.12a813ac.chunk.js",
-    "main.js.map": "/nariapi/static/js/main.12a813ac.chunk.js.map",
+    "main.css": "/nariapi/static/css/main.ac38ea7a.chunk.css",
+    "main.js": "/nariapi/static/js/main.568c0bca.chunk.js",
+    "main.js.map": "/nariapi/static/js/main.568c0bca.chunk.js.map",
     "runtime-main.js": "/nariapi/static/js/runtime-main.c4670dc8.js",
     "runtime-main.js.map": "/nariapi/static/js/runtime-main.c4670dc8.js.map",
-    "static/js/2.8a22efa7.chunk.js": "/nariapi/static/js/2.8a22efa7.chunk.js",
-    "static/js/2.8a22efa7.chunk.js.map": "/nariapi/static/js/2.8a22efa7.chunk.js.map",
+    "static/js/2.86b9e632.chunk.js": "/nariapi/static/js/2.86b9e632.chunk.js",
+    "static/js/2.86b9e632.chunk.js.map": "/nariapi/static/js/2.86b9e632.chunk.js.map",
     "index.html": "/nariapi/index.html",
-    "static/css/main.eb2fd41d.chunk.css.map": "/nariapi/static/css/main.eb2fd41d.chunk.css.map",
-    "static/js/2.8a22efa7.chunk.js.LICENSE.txt": "/nariapi/static/js/2.8a22efa7.chunk.js.LICENSE.txt"
+    "static/css/main.ac38ea7a.chunk.css.map": "/nariapi/static/css/main.ac38ea7a.chunk.css.map",
+    "static/js/2.86b9e632.chunk.js.LICENSE.txt": "/nariapi/static/js/2.86b9e632.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c4670dc8.js",
-    "static/js/2.8a22efa7.chunk.js",
-    "static/css/main.eb2fd41d.chunk.css",
-    "static/js/main.12a813ac.chunk.js"
+    "static/js/2.86b9e632.chunk.js",
+    "static/css/main.ac38ea7a.chunk.css",
+    "static/js/main.568c0bca.chunk.js"
   ]
 }

@@ -2,7 +2,7 @@
   "name": "products-api-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://narisota.github.io/crjp",
+  "homepage": "https://narisota.github.io/crjp",
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
     "@testing-library/jest-dom": "^5.11.4",

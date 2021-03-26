@@ -3,5 +3,6 @@ query getProductShipping($product_id: Float!) {
         shipping_id
         country
         price
+        stackable
     }
 }

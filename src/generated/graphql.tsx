@@ -15,6 +15,7 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
+  getShippingCost: Scalars['String'];
   getUsersOrders: Array<GetOrdersResponse>;
   getOrders: Array<GetOrdersResponse>;
   getOrderById: GetOrdersResponse;
@@ -35,6 +36,12 @@ export type Query = {
   getSectionsProducts: Array<ProductsWithImages>;
   getProductsOptions: Array<Options>;
   getProductShipping: Array<Shipping>;
+};
+
+
+export type QueryGetShippingCostArgs = {
+  products: Scalars['String'];
+  US_ORDER: Scalars['Boolean'];
 };
 
 
@@ -212,6 +219,7 @@ export type Shipping = {
   shipping_id: Scalars['Int'];
   country: Scalars['String'];
   price: Scalars['Float'];
+  stackable?: Maybe<Scalars['Boolean']>;
 };
 
 export type Mutation = {
@@ -249,7 +257,9 @@ export type Mutation = {
   addOptionToProduct: Scalars['Boolean'];
   updateOptions: Scalars['Boolean'];
   deleteOptions: Scalars['Boolean'];
+  toggleShippingStackable: Scalars['Boolean'];
   addShippingToProduct: Scalars['Boolean'];
+  deleteShippingFromProduct: Scalars['Boolean'];
 };
 
 
@@ -260,12 +270,14 @@ export type MutationEditTrackingArgs = {
 
 
 export type MutationPaypalCheckoutArgs = {
+  US_ORDER: Scalars['Boolean'];
   coupon: Scalars['String'];
   products: Scalars['String'];
 };
 
 
 export type MutationAddPaypalOrderArgs = {
+  US_ORDER: Scalars['Boolean'];
   purchase_units: Scalars['String'];
   products: Scalars['String'];
   coupon: Scalars['String'];
@@ -438,9 +450,19 @@ export type MutationDeleteOptionsArgs = {
 };
 
 
+export type MutationToggleShippingStackableArgs = {
+  shipping_id: Scalars['Float'];
+};
+
+
 export type MutationAddShippingToProductArgs = {
   shipping_str: Scalars['String'];
   product_id: Scalars['Float'];
+};
+
+
+export type MutationDeleteShippingFromProductArgs = {
+  shipping_str: Scalars['String'];
 };
 
 export type AuthResponse = {
@@ -623,6 +645,16 @@ export type DeleteSectionMutation = (
   & Pick<Mutation, 'deleteSection'>
 );
 
+export type DeleteShippingFromProductMutationVariables = Exact<{
+  shipping_str: Scalars['String'];
+}>;
+
+
+export type DeleteShippingFromProductMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteShippingFromProduct'>
+);
+
 export type EditTrackingMutationVariables = Exact<{
   new_tracking_num: Scalars['String'];
   order_id: Scalars['Float'];
@@ -741,7 +773,7 @@ export type GetProductShippingQuery = (
   { __typename?: 'Query' }
   & { getProductShipping: Array<(
     { __typename?: 'Shipping' }
-    & Pick<Shipping, 'shipping_id' | 'country' | 'price'>
+    & Pick<Shipping, 'shipping_id' | 'country' | 'price' | 'stackable'>
   )> }
 );
 
@@ -891,6 +923,16 @@ export type ToggleProductDisplayMutationVariables = Exact<{
 export type ToggleProductDisplayMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'toggleProductDisplay'>
+);
+
+export type ToggleShippingStackableMutationVariables = Exact<{
+  shipping_id: Scalars['Float'];
+}>;
+
+
+export type ToggleShippingStackableMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'toggleShippingStackable'>
 );
 
 export type ToggleSocialDisplayMutationVariables = Exact<{
@@ -1445,6 +1487,36 @@ export function useDeleteSectionMutation(baseOptions?: Apollo.MutationHookOption
 export type DeleteSectionMutationHookResult = ReturnType<typeof useDeleteSectionMutation>;
 export type DeleteSectionMutationResult = Apollo.MutationResult<DeleteSectionMutation>;
 export type DeleteSectionMutationOptions = Apollo.BaseMutationOptions<DeleteSectionMutation, DeleteSectionMutationVariables>;
+export const DeleteShippingFromProductDocument = gql`
+    mutation deleteShippingFromProduct($shipping_str: String!) {
+  deleteShippingFromProduct(shipping_str: $shipping_str)
+}
+    `;
+export type DeleteShippingFromProductMutationFn = Apollo.MutationFunction<DeleteShippingFromProductMutation, DeleteShippingFromProductMutationVariables>;
+
+/**
+ * __useDeleteShippingFromProductMutation__
+ *
+ * To run a mutation, you first call `useDeleteShippingFromProductMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteShippingFromProductMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteShippingFromProductMutation, { data, loading, error }] = useDeleteShippingFromProductMutation({
+ *   variables: {
+ *      shipping_str: // value for 'shipping_str'
+ *   },
+ * });
+ */
+export function useDeleteShippingFromProductMutation(baseOptions?: Apollo.MutationHookOptions<DeleteShippingFromProductMutation, DeleteShippingFromProductMutationVariables>) {
+        return Apollo.useMutation<DeleteShippingFromProductMutation, DeleteShippingFromProductMutationVariables>(DeleteShippingFromProductDocument, baseOptions);
+      }
+export type DeleteShippingFromProductMutationHookResult = ReturnType<typeof useDeleteShippingFromProductMutation>;
+export type DeleteShippingFromProductMutationResult = Apollo.MutationResult<DeleteShippingFromProductMutation>;
+export type DeleteShippingFromProductMutationOptions = Apollo.BaseMutationOptions<DeleteShippingFromProductMutation, DeleteShippingFromProductMutationVariables>;
 export const EditTrackingDocument = gql`
     mutation editTracking($new_tracking_num: String!, $order_id: Float!) {
   editTracking(new_tracking_num: $new_tracking_num, order_id: $order_id)
@@ -1764,6 +1836,7 @@ export const GetProductShippingDocument = gql`
     shipping_id
     country
     price
+    stackable
   }
 }
     `;
@@ -2229,6 +2302,36 @@ export function useToggleProductDisplayMutation(baseOptions?: Apollo.MutationHoo
 export type ToggleProductDisplayMutationHookResult = ReturnType<typeof useToggleProductDisplayMutation>;
 export type ToggleProductDisplayMutationResult = Apollo.MutationResult<ToggleProductDisplayMutation>;
 export type ToggleProductDisplayMutationOptions = Apollo.BaseMutationOptions<ToggleProductDisplayMutation, ToggleProductDisplayMutationVariables>;
+export const ToggleShippingStackableDocument = gql`
+    mutation toggleShippingStackable($shipping_id: Float!) {
+  toggleShippingStackable(shipping_id: $shipping_id)
+}
+    `;
+export type ToggleShippingStackableMutationFn = Apollo.MutationFunction<ToggleShippingStackableMutation, ToggleShippingStackableMutationVariables>;
+
+/**
+ * __useToggleShippingStackableMutation__
+ *
+ * To run a mutation, you first call `useToggleShippingStackableMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useToggleShippingStackableMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [toggleShippingStackableMutation, { data, loading, error }] = useToggleShippingStackableMutation({
+ *   variables: {
+ *      shipping_id: // value for 'shipping_id'
+ *   },
+ * });
+ */
+export function useToggleShippingStackableMutation(baseOptions?: Apollo.MutationHookOptions<ToggleShippingStackableMutation, ToggleShippingStackableMutationVariables>) {
+        return Apollo.useMutation<ToggleShippingStackableMutation, ToggleShippingStackableMutationVariables>(ToggleShippingStackableDocument, baseOptions);
+      }
+export type ToggleShippingStackableMutationHookResult = ReturnType<typeof useToggleShippingStackableMutation>;
+export type ToggleShippingStackableMutationResult = Apollo.MutationResult<ToggleShippingStackableMutation>;
+export type ToggleShippingStackableMutationOptions = Apollo.BaseMutationOptions<ToggleShippingStackableMutation, ToggleShippingStackableMutationVariables>;
 export const ToggleSocialDisplayDocument = gql`
     mutation toggleSocialDisplay($id: Float!) {
   toggleSocialDisplay(id: $id)

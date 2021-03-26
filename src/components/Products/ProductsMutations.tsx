@@ -10,6 +10,8 @@ import {
     useDeleteOptionsMutation,
     useUpdateOptionsMutation,
     useAddShippingToProductMutation,
+    useDeleteShippingFromProductMutation,
+    useToggleShippingStackableMutation,
 } from "../../generated/graphql";
 
 const ProductsMutations = () => {
@@ -24,6 +26,8 @@ const ProductsMutations = () => {
     const [deleteOptions] = useDeleteOptionsMutation();
     const [UPDATE_OPTS] = useUpdateOptionsMutation();
     const [addShippingToProduct] = useAddShippingToProductMutation();
+    const [deleteShipping] = useDeleteShippingFromProductMutation();
+    const [toggleShippingStackable] = useToggleShippingStackableMutation();
 
     return {
         addProductToSection,
@@ -37,6 +41,8 @@ const ProductsMutations = () => {
         deleteOptions,
         UPDATE_OPTS,
         addShippingToProduct,
+        deleteShipping,
+        toggleShippingStackable,
     };
 };
 

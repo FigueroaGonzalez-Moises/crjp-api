@@ -75,19 +75,22 @@ const AddProducts = () => {
                 form.append("timestamp", `${t}`);
 
                 // "https://api.cloudinary.com/v1_1/CLOUD_NAME/image/upload"
-                let res = await Axios.post(
-                    `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
-                    form,
-                    {
-                        headers: {
-                            "X-Requested-With": "XMLHttpRequest",
-                        },
-                    }
-                );
-
-                let tmp: any = image_urls;
-                tmp.push(res.data.secure_url);
-                setImage_urls(tmp);
+                try {
+                    let res = await Axios.post(
+                        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                        form,
+                        {
+                            headers: {
+                                "X-Requested-With": "XMLHttpRequest",
+                            },
+                        }
+                    );
+                    let tmp: any = image_urls;
+                    tmp.push(res.data.secure_url);
+                    setImage_urls(tmp);
+                } catch (e) {
+                    console.log("e :>> ", e);
+                }
             }
             setRefresh(!refresh);
         }

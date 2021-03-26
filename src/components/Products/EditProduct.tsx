@@ -25,6 +25,8 @@ const EditProduct = () => {
         deleteOptions,
         UPDATE_OPTS,
         addShippingToProduct,
+        deleteShipping,
+        toggleShippingStackable,
     } = ProductsMutations();
 
     const [refresh, setRefresh] = useState(false);
@@ -370,6 +372,11 @@ const EditProduct = () => {
             await deleteOptions({ variables: { options_str } });
         }
 
+        if (removedShipping.length !== 0) {
+            let shipping_str = JSON.stringify(removedShipping);
+            await deleteShipping({ variables: { shipping_str } });
+        }
+
         await updateProduct({
             variables: {
                 product_id,
@@ -494,8 +501,6 @@ const EditProduct = () => {
             }
         }
 
-        debugger;
-
         if (shipping.length !== 0) {
             let shipping_str = JSON.stringify(shippingValues);
             console.log("shipping_str :>> ", shipping_str);
@@ -515,11 +520,10 @@ const EditProduct = () => {
             }
             console.log("response :>> ", response);
         }
-        // window.location.reload();
+        window.location.reload();
     };
 
     let product = data!.apiGetProduct;
-
     return (
         <div className="container" style={{ width: "50%" }}>
             <div className="row">
@@ -1055,12 +1059,21 @@ const EditProduct = () => {
                                                                             <label
                                                                                 htmlFor={`shipping_country-${index}`}
                                                                             >
-                                                                                {
-                                                                                    country
-                                                                                }{" "}
-                                                                                US
-                                                                                OR
-                                                                                EL
+                                                                                {country ===
+                                                                                "Country" ? (
+                                                                                    <>
+                                                                                        TYPE
+                                                                                        US
+                                                                                        OR
+                                                                                        EL
+                                                                                    </>
+                                                                                ) : (
+                                                                                    <>
+                                                                                        {
+                                                                                            country
+                                                                                        }
+                                                                                    </>
+                                                                                )}
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -1107,11 +1120,45 @@ const EditProduct = () => {
                                                                     <i
                                                                         className="material-icons red-text noselect"
                                                                         onClick={() => {
-                                                                            //if there's data set removed options
+                                                                            //if there's data set removed shipping
                                                                             console.log(
                                                                                 "id :>> ",
                                                                                 id
                                                                             );
+
+                                                                            let length = shdata!
+                                                                                .getProductShipping!
+                                                                                .length;
+                                                                            for (
+                                                                                let i = 0;
+                                                                                i <
+                                                                                length;
+                                                                                i++
+                                                                            ) {
+                                                                                if (
+                                                                                    shdata!
+                                                                                        .getProductShipping[
+                                                                                        i
+                                                                                    ]
+                                                                                        .shipping_id ===
+                                                                                    Number(
+                                                                                        id
+                                                                                    )
+                                                                                ) {
+                                                                                    let tmp = removedShipping;
+                                                                                    tmp.push(
+                                                                                        Number(
+                                                                                            id
+                                                                                        )
+                                                                                    );
+                                                                                    setRemovedShipping(
+                                                                                        tmp
+                                                                                    );
+
+                                                                                    break;
+                                                                                }
+                                                                            }
+
                                                                             // else remove from state
                                                                             for (
                                                                                 let j = 0;
@@ -1202,6 +1249,27 @@ const EditProduct = () => {
                     </div>
                 </div>
 
+                <div
+                    className="centered"
+                    onClick={async () => {
+                        for (
+                            let i = 0;
+                            i < shdata!.getProductShipping.length;
+                            i++
+                        ) {
+                            await toggleShippingStackable({
+                                variables: {
+                                    shipping_id: shdata!.getProductShipping[i]
+                                        .shipping_id,
+                                },
+                            });
+                        }
+
+                        window.location.reload();
+                    }}
+                >
+                    Stackable: {shdata?.getProductShipping[0].stackable! ? <>True</> : <>False</>}
+                </div>
                 <div
                     style={{
                         display: "flex",

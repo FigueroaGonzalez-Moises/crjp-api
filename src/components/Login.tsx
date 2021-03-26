@@ -15,7 +15,6 @@ const Login = () => {
                     password,
                 },
             });
-            console.log("res :>> ", res);
             if (res && res.data) {
                 let tmp = res.data.apiLogin.accessToken as any;
                 setAccessToken(tmp!);

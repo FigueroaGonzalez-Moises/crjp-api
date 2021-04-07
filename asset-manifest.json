@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/crjp-api/static/css/main.8f8d6862.chunk.css",
-    "main.js": "/crjp-api/static/js/main.b22048b5.chunk.js",
-    "main.js.map": "/crjp-api/static/js/main.b22048b5.chunk.js.map",
+    "main.js": "/crjp-api/static/js/main.469d099f.chunk.js",
+    "main.js.map": "/crjp-api/static/js/main.469d099f.chunk.js.map",
     "runtime-main.js": "/crjp-api/static/js/runtime-main.d0690872.js",
     "runtime-main.js.map": "/crjp-api/static/js/runtime-main.d0690872.js.map",
     "static/js/2.382bb0bf.chunk.js": "/crjp-api/static/js/2.382bb0bf.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.d0690872.js",
     "static/js/2.382bb0bf.chunk.js",
     "static/css/main.8f8d6862.chunk.css",
-    "static/js/main.b22048b5.chunk.js"
+    "static/js/main.469d099f.chunk.js"
   ]
 }

@@ -98,6 +98,62 @@ const Login = () => {
                                                 Login
                                             </button>
                                         </div>
+                                        <span className="centered mb">
+                                            <span>OR</span>
+                                        </span>
+
+                                        <div
+                                            className="row"
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            <button
+                                                type="submit"
+                                                className="btn black"
+                                                onClick={async () => {
+                                                    try {
+                                                        let res = await Login({
+                                                            variables: {
+                                                                username:
+                                                                    "demoUser",
+                                                                password:
+                                                                    "demoPassword",
+                                                            },
+                                                        });
+                                                        if (res && res.data) {
+                                                            let tmp = res.data
+                                                                .apiLogin
+                                                                .accessToken as any;
+                                                            setAccessToken(
+                                                                tmp!
+                                                            );
+                                                            localStorage.setItem(
+                                                                "urd",
+                                                                res.data
+                                                                    .apiLogin
+                                                                    .refreshToken!
+                                                            );
+                                                            window.location.reload();
+                                                        }
+                                                    } catch (err) {
+                                                        console.log(
+                                                            "err :>> ",
+                                                            err
+                                                        );
+                                                        M.toast({
+                                                            html: "Failed Login",
+                                                        });
+                                                        M.toast({
+                                                            html: "server is likely down",
+                                                        });
+                                                    }
+                                                }}
+                                            >
+                                                Demo User
+                                            </button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

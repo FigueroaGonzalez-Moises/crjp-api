@@ -5,6 +5,13 @@
     grid-template-rows: 450px;
 }
 
+@media only screen and (max-width: 900px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 450px;
+    }
+}
+
 .card {
     transition: box-shadow 0.3s;
 

@@ -1257,7 +1257,7 @@ const EditProduct = () => {
                             i < shdata!.getProductShipping.length;
                             i++
                         ) {
-                            await toggleShippingStackable({
+                            let res = await toggleShippingStackable({
                                 variables: {
                                     shipping_id: shdata!.getProductShipping[i]
                                         .shipping_id,
@@ -1268,7 +1268,14 @@ const EditProduct = () => {
                         window.location.reload();
                     }}
                 >
-                    Stackable: {shdata?.getProductShipping[0].stackable! ? <>True</> : <>False</>}
+                    Stackable:{" "}
+                    {!!shdata &&
+                    shdata.getProductShipping.length !== 0 &&
+                    shdata.getProductShipping[0].stackable ? (
+                        <>True</>
+                    ) : (
+                        <>False</>
+                    )}
                 </div>
                 <div
                     style={{

@@ -119,6 +119,7 @@ export type OrdersProductsWithImages = {
   quantityOrdered: Scalars['Float'];
   productSubtotal?: Maybe<Scalars['Float']>;
   images?: Maybe<Array<Images>>;
+  options?: Maybe<Options>;
 };
 
 export type Images = {
@@ -126,6 +127,15 @@ export type Images = {
   img_id: Scalars['Float'];
   img_url: Scalars['String'];
   index: Scalars['Float'];
+};
+
+export type Options = {
+  __typename?: 'Options';
+  option_id: Scalars['Int'];
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  stock: Scalars['Int'];
+  index: Scalars['Int'];
 };
 
 export type ProductsWithImages = {
@@ -152,15 +162,6 @@ export type ProductsWithOptionAndImages = {
   exp_date?: Maybe<Scalars['String']>;
   images?: Maybe<Array<Images>>;
   options?: Maybe<Array<Options>>;
-};
-
-export type Options = {
-  __typename?: 'Options';
-  option_id: Scalars['Int'];
-  name: Scalars['String'];
-  price: Scalars['Int'];
-  stock: Scalars['Int'];
-  index: Scalars['Int'];
 };
 
 export type ApiUser = {
@@ -723,7 +724,10 @@ export type GetOrderByIdQuery = (
       & { images?: Maybe<Array<(
         { __typename?: 'Images' }
         & Pick<Images, 'img_id' | 'img_url' | 'index'>
-      )>> }
+      )>>, options?: Maybe<(
+        { __typename?: 'Options' }
+        & Pick<Options, 'option_id' | 'name' | 'price' | 'stock' | 'index'>
+      )> }
     )>> }
   ) }
 );
@@ -1693,6 +1697,13 @@ export const GetOrderByIdDocument = gql`
       images {
         img_id
         img_url
+        index
+      }
+      options {
+        option_id
+        name
+        price
+        stock
         index
       }
     }

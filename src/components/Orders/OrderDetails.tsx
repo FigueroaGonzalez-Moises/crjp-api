@@ -486,11 +486,39 @@ const OrderDetails = () => {
                                                             fontWeight: "bold",
                                                         }}
                                                     >
-                                                        {
-                                                            data.getOrderById
-                                                                .products![j]
-                                                                .name!
-                                                        }
+                                                        {!data.getOrderById
+                                                            .products![j]
+                                                            .options ? (
+                                                            <>
+                                                                {
+                                                                    data
+                                                                        .getOrderById
+                                                                        .products![
+                                                                        j
+                                                                    ].name!
+                                                                }
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                {
+                                                                    data
+                                                                        .getOrderById
+                                                                        .products![
+                                                                        j
+                                                                    ].name!
+                                                                }{" "}
+                                                                (
+                                                                {
+                                                                    data
+                                                                        .getOrderById
+                                                                        .products![
+                                                                        j
+                                                                    ].options
+                                                                        ?.name
+                                                                }
+                                                                )
+                                                            </>
+                                                        )}
                                                     </p>
                                                     <p className="hide-on-small-only">
                                                         Qty:{" "}
@@ -499,34 +527,43 @@ const OrderDetails = () => {
                                                                 .products![j]
                                                                 .quantityOrdered
                                                         }{" "}
-                                                        ($
-                                                        {Number(
-                                                            data.getOrderById
+                                                        (
+                                                        <span className="bold">
+                                                            $
+                                                            {!data.getOrderById
                                                                 .products![j]
-                                                                .productSubtotal! /
-                                                                100
-                                                        ).toFixed(2)}{" "}
-                                                        {data.getOrderById
-                                                            .products![j]
-                                                            .quantityOrdered ===
-                                                        1 ? (
-                                                            <></>
-                                                        ) : (
-                                                            <>
-                                                                @ $
-                                                                {Number(
-                                                                    data
-                                                                        .getOrderById
-                                                                        .products![
-                                                                        j
-                                                                    ].price /
-                                                                        100
-                                                                ).toFixed(
-                                                                    2
-                                                                )}{" "}
-                                                                each
-                                                            </>
-                                                        )}
+                                                                .options ? (
+                                                                <>
+                                                                    {Number(
+                                                                        data
+                                                                            .getOrderById
+                                                                            .products![
+                                                                            j
+                                                                        ]
+                                                                            .productSubtotal! /
+                                                                            100
+                                                                    ).toFixed(
+                                                                        2
+                                                                    )}
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    {Number(
+                                                                        data
+                                                                            .getOrderById
+                                                                            .products![
+                                                                            j
+                                                                        ]
+                                                                            .options!
+                                                                            .price /
+                                                                            100
+                                                                    ).toFixed(
+                                                                        2
+                                                                    )}
+                                                                </>
+                                                            )}{" "}
+                                                            each
+                                                        </span>
                                                         )
                                                     </p>
                                                 </div>
